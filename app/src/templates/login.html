@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename = 'stylesheets/main.css')}}" type="text/css">
+  <title>Flask</title>
+</head>
+<body>
+  <main>
+    <div class="form">
+      <form class="card" method="POST" action="/resultado">
+        <div class="card-header">
+          <h2>Cadastro</h2>
+        </div>
+        <div class="card-content">
+          <div class="card-content-area">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome">
+          </div>
+          <div class="card-content-area">
+            <label for="e-mail">E-mail</label>
+            <input type="text" id="e-mail" name="email">
+          </div>
+          <div class="card-content-area">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha">
+          </div>
+        </div>
+        </div>
+        <div class="card-footer">
+          <input type="submit" value="Enviar">
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

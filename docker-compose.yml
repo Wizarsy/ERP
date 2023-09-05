@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  src:
+    build: ./src
+    container_name: src-container
+    command: python app.py
+    environment:
+      DB_HOST: db-container
+      DB_USER: ERP
+      DB_NAME: ERP
+      DB_PASS: Oij1ZRi8#E#kDS^5
+    volumes:
+      - ./src:/home/python/app
+    ports:
+      - "8000:5000"
+    depends_on:
+      - db
+  db:
+    image: postgres:alpine
+    container_name: db-container
+    restart: always
+    environment:
+      POSTGRES_USER: ERP
+      POSTGRES_DB: ERP
+      POSTGRES_PASSWORD: Oij1ZRi8#E#kDS^5
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
