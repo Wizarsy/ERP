@@ -1,6 +1,8 @@
 import asyncio
-from src.app import app
+
 import src.db as db
+from src.app import app
+
 
 async def main():
   await db.init()

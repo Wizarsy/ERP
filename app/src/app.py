@@ -1,12 +1,17 @@
 from flask import Flask
-import src.db as db
+from .pages.home import home
+from .pages.auth import auth
+from .pages.admin import admin
+from .pages.dashboard import dashboard
 
 app = Flask(__name__)
 
-app.add_url_rule()
-# @app.get("/")
-# def login():
-#     return render_template('login.html')
+
+app.register_blueprint(home.bp)
+app.register_blueprint(auth.bp)
+app.register_blueprint(admin.bp)
+app.register_blueprint(dashboard.bp)
+
 
 # @app.route("/resultado", methods = ['GET', 'POST'])
 # def resultado():
