@@ -1,7 +1,12 @@
 <header>
   <nav>
     <ul>
-      <li><a href="#">teste</a></li>
+      {% if g.user %}
+      <p>Olá {{g.user['username']}}</p>
+      <li><a href="{{url_for('auth.logout')}}">Logout</a></li>
+      {% else %}
+      <li><a href="{{url_for('auth.login')}}">login</a></li>
+      {% endif %}
       <li><a href="#">teste</a></li>
       <li><a href="#">teste</a></li>
       <li><a href="#">teste</a></li>

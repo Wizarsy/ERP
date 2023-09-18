@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block content %}
+<main>
+  {% for message in get_flashed_messages() %}
+    {{message}}
+  {% endfor %}
+  <form method="POST" >
+    <h2>Cadastro</h2>
+    <label for="username">Nome</label>
+    <input type="text" id="username" name="username">
+    <label for="email">E-mail</label>
+    <input type="text" id="email" name="email">
+    <label for="passw">Senha</label>
+    <input type="password" id="passw" name="passw">
+    <button type="submit">Cadastrar</button>
+  </form>
+</main>
+{% endblock %}
