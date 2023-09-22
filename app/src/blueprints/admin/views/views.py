@@ -1,5 +1,5 @@
 from flask.views import MethodView
-from src.blueprints.auth.login_required import loginRequired
+from src.middleware.login_required import loginRequired
 
 class indexView(MethodView):
   

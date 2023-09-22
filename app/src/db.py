@@ -1,29 +1,35 @@
 import time
 
+from psycopg.errors import UniqueViolation
 from psycopg.rows import dict_row
-from psycopg_pool import ConnectionPool, errors
+from psycopg_pool import ConnectionPool
 from src.config import CONFIG
-
-db = ConnectionPool(open = False, kwargs = {**CONFIG["db"], "row_factory": dict_row, "autocommit": True})
+from werkzeug.security import check_password_hash, generate_password_hash
+db = ConnectionPool(kwargs = {**CONFIG["db"], "row_factory": dict_row, "autocommit": True})
 
 def init():
   print(f"Trying to connect to the DB...")
-  while True:
-    try:
-      db.open()
-      with db.connection() as conn:
-        conn.execute(
-          """CREATE TABLE IF NOT EXISTS users (
-                                                id SERIAL PRIMARY KEY, 
-                                                username TEXT NOT NULL, 
-                                                email TEXT NOT NULL, 
-                                                passwh TEXT NOT NULL);
-                                                """)
-        conn.execute("INSERT INTO users (username, email, passwh) VALUES (%s, %s, %s)", 
-                     ("wizarsy", "email@email.com", "pbkdf2:sha256:600000$YEV8SofkYUB65EY8$5338ff8cb37825355a5b4f603995036cdcb1ee82be08d48361739e029fe90bfc"))
-      print("Connected to the DB.")
-      break
-    except errors.PoolTimeout:
-      print("Connection error, trying again...")
-      db.close()
-      time.sleep(5)
+  with db.connection() as conn:
+    dq = conn.cursor()
+    with conn.transaction():
+      dq.execute('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
+      dq.execute(
+        """CREATE TABLE IF NOT EXISTS users_account ( 
+                                                      id VARCHAR(255) DEFAULT uuid_generate_v4(), 
+                                                      username TEXT NOT NULL, 
+                                                      email TEXT UNIQUE NOT NULL, 
+                                                      passwh TEXT NOT NULL,
+                                                      emailConfirmed BOOLEAN DEFAULT False,
+                                                      PRIMARY KEY(id, email))
+                                                      """)
+  print("Connected to the DB.")
+  
+def firstInit():
+  with db.connection() as conn:
+    dq = conn.cursor()
+    with conn.transaction():
+      try:
+        dq.execute("INSERT INTO users_account (username, email, passwh) VALUES (%s, %s, %s)", ("wizarsy", "filipemadruga@outlook.com", "pbkdf2:sha256:600000$YEV8SofkYUB65EY8$5338ff8cb37825355a5b4f603995036cdcb1ee82be08d48361739e029fe90bfc"))
+      except UniqueViolation:
+        print("already exist")
+  print(dq.execute("SELECT * FROM users_account").fetchall())

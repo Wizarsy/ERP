@@ -3,6 +3,8 @@ services:
   app:
     build: ./app
     container_name: app-container
+    depends_on:
+      - db
     command: python main.py
     environment:
       DB_HOST: db-container
@@ -10,14 +12,16 @@ services:
       DB_NAME: ERP
       DB_PASS: Oij1ZRi8#E#kDS^5
       FLASK_DEBUG: True
-      FLASK_SECRET_KEY: a13b22ab08f2810e5a0a6620694f80315cad4b60771ad851623293357f519558
-      FLASK_SESSION_COOKIE_SECURE: False
+      FLASK_SECRET_KEY: 206ed54f6ba573fcac643bac0e6ad1d40744c9803d5e81d6115b6618cb949cc4f7ce03f9f775d09b4b83fd24d3c7e2e46cec27231f9e65214a4961af76bba2ea
+      TOKEN_SECRET_KEY: 58b64c534ffdbb600c1e81a73865b479078969b73a323c4cffe577e01db61f2d7165092d50ce6547b83c57babf30b4cccb1a4e96c5948b5f88c0c68195158309
+      SMTP_HOST: smtp.office365.com
+      SMTP_PORT: 587
+      EMAIL_ACCOUNT: wizarsy@hotmail.com
+      EMAIL_PASSWORD: cairwyohiosfvkky
     volumes:
       - ./app:/home/python/app
     ports:
       - "8000:5000"
-    depends_on:
-      - db
       
   db:
     image: postgres:alpine

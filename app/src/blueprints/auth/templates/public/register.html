@@ -2,18 +2,28 @@
 
 {% block content %}
 <main>
-  {% for message in get_flashed_messages() %}
-    {{message}}
-  {% endfor %}
-  <form method="POST" >
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <form method = "POST" >
     <h2>Cadastro</h2>
-    <label for="username">Nome</label>
-    <input type="text" id="username" name="username">
-    <label for="email">E-mail</label>
-    <input type="text" id="email" name="email">
-    <label for="passw">Senha</label>
-    <input type="password" id="passw" name="passw">
-    <button type="submit">Cadastrar</button>
+    <label for = "name">Name</label>
+    <input type = "text" id = "name" name = "name">
+    <label for = "email">E-mail</label>
+    <input type = "text" id = "email" name = "email">
+    <label for = "confirm_email">Confirm your E-mail</label>
+    <input type = "text" id = "confirm_email" name = "confirm_email">
+    <label for = "passw">Password</label>
+    <input type = "password" id = "passw" name = "passw">
+    <label for = "confirm_passw">Confirm your password</label>
+    <input type = "password" id = "confirm_passw" name = "confirm_passw">
+    <button type = "submit">Register</button>
   </form>
 </main>
 {% endblock %}

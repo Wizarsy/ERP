@@ -2,17 +2,24 @@
 
 {% block content %}
 <main>
-  {% for message in get_flashed_messages() %}
-    {{message}}
-  {% endfor %}
-  <form method="POST" >
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <form method ="POST" >
     <h2>Login</h2>
-    <label for="login">login</label>
-    <input type="text" id="login" name="login" placeholder = "E-mail or Username">
-    <label for="passw">Senha</label>
-    <input type="password" id="passw" name="passw">
-    <button type="submit">Enter</button>
-    <a href="{{url_for('auth.register')}}">register?</a>
+    <label for = "login">Login</label>
+    <input type = "text" id = "login" name = "login" placeholder = "E-mail or Username">
+    <label for = "passw">Password</label>
+    <input type = "password" id = "passw" name = "passw">
+    <button type = "submit">Enter</button>
+    <a href = "{{url_for('auth.forgotPassword')}}">Forgot password?</a>
+    <p>Do not have an account? <a href = "{{url_for('auth.register')}}">Sign up</a></p>
   </form>
 </main>
 {% endblock %}
