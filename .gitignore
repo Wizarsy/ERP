@@ -2,5 +2,5 @@
 **/data
 **/env
 
-docker-compose.yml
+*.yml
 Dockerfile
