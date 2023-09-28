@@ -1,5 +1,6 @@
 **/__pycache__
 **/data
 **/env
+**/tests
 *docker-compose.yml
 *Dockerfile
