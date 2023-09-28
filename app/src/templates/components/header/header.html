@@ -1,15 +1,37 @@
 <header>
-  <nav>
-    <ul>
-      {% if g.user %}
-      <p>Olá {{g.user['username']}}</p>
-      <li><a href="{{url_for('auth.logout')}}">Logout</a></li>
-      {% else %}
-      <li><a href="{{url_for('auth.login')}}">login</a></li>
-      {% endif %}
-      <li><a href="#">teste</a></li>
-      <li><a href="#">teste</a></li>
-      <li><a href="#">teste</a></li>
-    </ul>
-  </nav>
+  <div class = "header">
+    <div class = "header-bar">
+      <div class = "header-icon">
+        <a href = "{{url_for('home.index')}}"><img src = "{{url_for('static', filename = 'assets/home.svg')}}" alt = "home"></a>
+      </div>
+      {% if request.path != url_for("auth.login") and request.path != url_for("auth.register") %}
+      <div class = "header-items">
+        <nav>
+          <ul>
+            {% if g.user %}
+            <p>Olá {{g.user['username']}}</p>
+            <li><a href = "{{url_for('auth.logout')}}">Logout</a></li>
+            {% else %}
+            <li><a href = "{{url_for('auth.register')}}">Sign up</a></li>
+            <li><a href = "{{url_for('auth.login')}}">Sign in</a></li>
+            {% endif %}
+            <li><a href = "#">teste</a></li>
+            <li><a href = "#">teste</a></li>
+            <li><a href = "#">teste</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    {% endif %}
+    <div class = "header-side-bar active">
+      <aside>
+        <ul>
+          <li><a href = "">teste</a></li>
+          <li><a href = "">teste</a></li>
+          <li><a href = "">teste</a></li>
+          <li><a href = "">teste</a></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
 </header>
