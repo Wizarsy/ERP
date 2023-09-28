@@ -1,4 +1,4 @@
-from flask import sessions, g, redirect, url_for
+from flask import g, redirect, url_for
 from functools import wraps
 
 def loginRequired(func):
