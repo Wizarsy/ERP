@@ -1,16 +1,100 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;800&display=swap');
-*
-{
+
+:root {
   font-family: 'Open Sans', sans-serif;
+  --bg_white: #FCFCFC;
+  --bg_panel: #EBEBEB;
+  --color: #333333;
+  --bg_items: #2a0034;
+  --bg_dark: #333333;
+  --color_dark: #ffffff;
 }
 
-html {
-  --bg: #FCFCFC;
-  --bg-panel: #EBEBEB;
-  --color-headings: #000000;
-  --color-text: #333333;
+::marker{
+  content: none;
 }
 
+body {
+  background-color: var(--bg_white);
+  color: var(--color);
+}
+
+a{
+  text-decoration: none;
+}
+
+.header{
+  display: flex;
+  padding: 15px 20px;
+  background-color: var(--bg_panel);
+  border-radius: 0px 0px 10px 10px;
+  top: 0;
+}
+
+.header ul{
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.header li {
+  margin: 0px 5px;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+}
+
+.header-icon img{
+  align-items: center;
+  width: 35px;
+  height: 35px;
+}
+
+.header-side-bar{
+  display: none;
+}
+
+.header-side-bar.active{
+  display: block;
+}
+
+body.darktheme{
+  background-color: var(--bg_dark);
+  color: var(--color_dark);
+}
+
+.layout {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+}
+
+.content{
+  background: #2a0034;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.footer {
+  display: flex;
+  bottom: 0;
+  position: absolute;
+}
+
+
+
+
+
+
+
+
+
+
+/* 
 body{
   padding: 0;
   margin: 0;
@@ -18,16 +102,16 @@ body{
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg);
-  color: var(--color-text);
+  background-color: var(--bg_white);
+  color: var(--color_text_white);
 }
 
 
 main{
   margin: 0 auto;
   position: relative;
-  background-color: var(--bg-panel);
-  color: var(--color-text);
+  background-color: var(--bg_panel_white);
+  color: var(--color_text_white);
   padding: 20px 55px 60px;
   margin-top: 60px;
   margin-bottom: 15px;
@@ -45,13 +129,13 @@ main{
 }
 
 .card {
-  background-color: var(--bg-panel);
+  background-color: var(--bg_panel_white);
   border-radius: 2px;
   width: 290px;
 }
 
 .card-content label {
-  color: var(--color-text);
+  color: var(--color_text_white);
   font-size: 12px;
 }
 .card-content-area {
@@ -75,4 +159,4 @@ main{
   color:#fff;
   margin: 10px 0;
   border-radius: 6px 6px 6px 6px ;
-}
+} */
