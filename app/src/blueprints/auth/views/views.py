@@ -20,7 +20,6 @@ class loginView(MethodView):
     if user is None or not check_password_hash(user["passwh"], user_passw):
       error = "Incorrect Username or Password"
     elif not user["email_confirmed"]:
-      flash("confirm your account", "warning")
       return redirect(url_for("auth.activeAccount", user = user["id"]))
     if error is None:
       session.clear()
@@ -84,7 +83,11 @@ class activeAccountView(MethodView):
         with db.connection() as dq:
           with dq.transaction():
             dq.execute("UPDATE users_account SET email_confirmed = True WHERE id = %s", [dec_token["info"]])
-        return render_template("public/confirmed_account.html")
+        flash("Your account has been verified", "success")
+        return redirect(url_for("auth.login"))
+      elif not dec_token["status"]:
+        flash(dec_token["info"], "error")
+        return redirect(url_for("auth.login"))
       else:
         return redirect(url_for("home.index"))
     elif user_id:
@@ -110,7 +113,7 @@ class forgotPasswordView(MethodView):
         return render_template("public/reset_password.html")
       else:
         flash(dec_token["info"], "error")
-        return redirect(url_for("auth.forgotPassword"))
+        return redirect(url_for("auth.login"))
     else:
       return render_template("public/forgot_password.html")
   
@@ -143,7 +146,7 @@ class forgotPasswordView(MethodView):
           return redirect(url_for("auth.forgotPassword", token = token))
       else:
         flash(dec_token["info"], "error")
-        return redirect(url_for("auth.forgotPassword"))
+        return redirect(url_for("auth.login"))
     else:
       user_email = request.form["email"]
       error = None
@@ -154,15 +157,14 @@ class forgotPasswordView(MethodView):
           user = dq.execute("SELECT * FROM users_account WHERE email = %s", [user_email]).fetchone()
         if user is not None:
           enc_token = encodeToken(user["id"], "forgotPassword")
-          # return redirect(url_for("auth.forgotPassword", token = enc_token))
           try:
             sendEmail(user["email"], "Reset password", url_for("auth.forgotPassword", token = enc_token, _external = True))
           except:
             abort(500)
-          return render_template("public/reset_sent.html")
+          flash("Check your email for a link to reset your password.", "success")
+          return redirect(url_for("auth.login"))
         else:
-          error = "User not found"
-          flash(error, "error")
+          flash("User not found", "error")
           return redirect(url_for("auth.forgotPassword"))
       else:
         flash(error, "error")

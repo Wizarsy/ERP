@@ -2,5 +2,6 @@
 **/data
 **/env
 **/tests
+**/pg-data/**
 docker-compose.yml
 Dockerfile

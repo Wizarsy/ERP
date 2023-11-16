@@ -42,14 +42,11 @@
 
 ### Frontend
 
-- [ ] Página inicial;
-- [ ] Página de usuário.
-- [x] Página de Cadastro;
-- [x] Página de Login;
-- [x] Página de Recuperação de senha;
+- [ ] Design figma;
 
 ## Insights
 
 Mudar pagina de confirmação de email:
-pagina pra pesquisar email -> volta pra pagina de login com a msg de erro ou envio.
+pagina para pesquisar email de resetar senha -> volta pra pagina de login com a msg de erro ou envio
 ao cadastrar direcionar pra pagina que diz que email de confirmação foi enviado, com a opção de mandar novamente o email.
+Se o token falhar apenas retorne pra pagina de login com o erro.
