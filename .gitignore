@@ -1,6 +1,6 @@
 **/__pycache__
 **/data
-**/env
+**/venv
 **/tests
 **/pg-data/**
 docker-compose.yml
